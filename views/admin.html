@@ -11,30 +11,7 @@
 		<script src="/static/js/bootstrap.min.js"></script>
 		<script src="/static/js/messenger.min.js"></script>
 	  	<script src="/static/js/backbone-min.js"></script>
-	  	<script type="text/javascript">
-	  		$(function(){
-	  		  Messenger.options = {
-	  		    extraClasses: "messenger-fixed messenger-on-bottom messenger-on-left",
-	  		    theme: "air"
-	  		  };
-	  		  var steps = function() {
-	  		      var msg = Messenger().post({
-	  		        message: '您有新的客户啦!',
-	  		        type: 'info',
-	  		      });
-	  		      //设置标签播放
-
-	  		      setTimeout(
-	  		        function(){
-	  		          msg.hide();
-	  		          //清除播放
-	  		        }, 
-	  		        6000
-	  		      );
-	  		    };
-	  		    steps();
-	  		});
-	  	</script>
+	  	<script src="/static/js/main.js"></script>
 	  	<title>中投天诚客户管理系统</title>
 	</head>
 <body>
@@ -54,10 +31,11 @@
     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      		<ul class="nav navbar-nav">
 	      		</ul>
-      		<div class="pull-right">
+      			<div class="pull-right">
 	    			<ul class="nav navbar-nav">
+	    				<li><a href=""><span class="badge" id="message">15</span></a></li>
 	    				<li><a href="/admin?exit=true">退出</a></li>
-	    				<li><a href="/">下载</a></li>
+	    				<li><a href="/admin/dowload">下载</a></li>
 	    			</ul>
     			</div>
     		</div><!-- /.navbar-collapse -->
@@ -76,7 +54,7 @@
 	     			<th>操作</th>
 	     		</tr>
 	     	</thead>
-			{{range .Users}}
+			{{range .paginator.users}}
 			<tbody>
 				<th>{{.Id}}</th>
      			<th>{{.Name}}</th>
@@ -84,7 +62,6 @@
      			<th>{{.PhoneNum}}</th>
      			<th>{{.Created}}</th>
      			<th>
-     				<a class="btn btn-default" href="">修改</a>
      				<a  class="btn btn-default" href="">删除</a>
      			</th>
 			</tbody>
@@ -93,14 +70,17 @@
 	</div>
 	<nav class="pag">
 	  <ul class="pagination pagination-lg">
-	    <li class={{.Pre}}><a href="/pre">&laquo;</a></li>
-	    <li class="active"><a href="#">1</a></li>
-	    <li><a href="#">2</a></li>
-	    <li><a href="#">3</a></li>
-	    <li><a href="#">4</a></li>
-	    <li><a href="#">5</a></li>
-	    <li class="{{.Next}}"><a href="/next">&raquo;</a></li>
+	  	<li class=""><a href="/admin/?p={{.paginator.firstpage}}">&laquo;</a></li>
+		<li> <a href="/admin/?p=1">首页</a></li>
+	  	{{range $index,$page := .paginator.pages}}
+	    <li  {{if eq $.paginator.currpage $page }}class="active"{{end}}>
+	    	<a href="/admin/?p={{$page}}">{{$page}}</a></li>  
+	    {{end}}
+	    <li><a href="/admin/?p={{.paginator.totalpages}}">尾页</a></li>
+	    <li><a href="/admin/?p={{.paginator.lastpage}}">&raquo;</a></li>
 	  </ul>
+	   <ul>共{{.paginator.totals}}条记录 共记{{.paginator.totalpages}}页</ul>
 	</nav>
+	<audio src="/static/audio/alert.ogg" autoplay="autoplay"></audio>
 </body>
 </html>

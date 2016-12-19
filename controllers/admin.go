@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"beeadmin/models"
+	//"fmt"
 	"github.com/astaxie/beego"
+	"strconv"
 )
 
 type AdminController struct {
@@ -10,23 +12,29 @@ type AdminController struct {
 }
 
 func (c *AdminController) Get() {
-	users, err := models.GetAllUsers()
-	if err != nil {
-		beego.Error(err)
-	} else {
-		c.Data["Users"] = users
-	}
-	c.Data["Pre"] = "disabled"
-	c.Data["Next"] = ""
-	if !checkAccount(c.Ctx) {
-		c.Redirect("/", 302)
-		return
-	}
+	//判断登陆是否合法
 	if c.Input().Get("exit") == "true" {
 		c.Ctx.SetCookie("uname", "", -1, "/")
 		c.Ctx.SetCookie("pwd", "", -1, "/")
 		c.Redirect("/", 301)
 		return
 	}
-	c.TplName = "admin.html"
+	if !checkAccount(c.Ctx) {
+		c.Redirect("/", 302)
+		return
+	}
+	/************传入数据******************/
+	pre_page := 10
+	pa := 1
+	pa, _ = strconv.Atoi(c.Input().Get("p"))
+	res, err := models.GetUsers(pa, pre_page)
+	if err != nil {
+		beego.Error(err)
+	} else {
+		c.Data["paginator"] = res
+		c.TplName = "admin.html"
+	}
+}
+func (c *AdminController) Dowload() {
+
 }

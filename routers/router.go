@@ -12,5 +12,6 @@ func init() {
 	/*设置路由器*/
 	beego.Router("/", &controllers.LoginController{})
 	beego.Router("/admin", &controllers.AdminController{})
+	beego.Router("/admin/dowload", &controllers.AdminController{}, "get:Dowload")
 	beego.AutoRouter(&controllers.LoginController{})
 }
