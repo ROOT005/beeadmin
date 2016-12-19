@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link href="/static/css/bootstrap.css" rel="stylesheet">
+	  	<link rel="stylesheet" href="/static/css/admin.css">
+	  	<link rel="stylesheet" href="/static/css/messenger.css">
+		<link rel="stylesheet" href="/static/css/messenger-theme-air.css">
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/messenger.min.js"></script>
+	  	<script src="/static/js/backbone-min.js"></script>
+	  	<script type="text/javascript">
+	  		$(function(){
+	  		  Messenger.options = {
+	  		    extraClasses: "messenger-fixed messenger-on-bottom messenger-on-left",
+	  		    theme: "air"
+	  		  };
+	  		  var steps = function() {
+	  		      var msg = Messenger().post({
+	  		        message: '您有新的客户啦!',
+	  		        type: 'info',
+	  		      });
+	  		      //设置标签播放
+
+	  		      setTimeout(
+	  		        function(){
+	  		          msg.hide();
+	  		          //清除播放
+	  		        }, 
+	  		        6000
+	  		      );
+	  		    };
+	  		    steps();
+	  		});
+	  	</script>
+	  	<title>中投天诚客户管理系统</title>
+	</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  		<div class="container">
+    		<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+  			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+  			</button>
+  			<a class="title navbar-brand" href="#">中投天诚客户管理系统</a>
+			</div>
+    		<!-- Collect the nav links, forms, and other content for toggling -->
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      		<ul class="nav navbar-nav">
+	      		</ul>
+      		<div class="pull-right">
+	    			<ul class="nav navbar-nav">
+	    				<li><a href="/admin?exit=true">退出</a></li>
+	    				<li><a href="/">下载</a></li>
+	    			</ul>
+    			</div>
+    		</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+		<h1 class="col-lg-offset-5">客户资料</h1>
+	     <table class="table table-striped">
+	     	<thead> 
+	     		<tr>
+	     			<th>#</th>
+	     			<th>姓名</th>
+	     			<th>贷款金额</th>
+	     			<th>联系电话</th>
+	     			<th>时间</th>
+	     			<th>操作</th>
+	     		</tr>
+	     	</thead>
+			{{range .Users}}
+			<tbody>
+				<th>{{.Id}}</th>
+     			<th>{{.Name}}</th>
+     			<th>{{.Account}}万</th>
+     			<th>{{.PhoneNum}}</th>
+     			<th>{{.Created}}</th>
+     			<th>
+     				<a class="btn btn-default" href="">修改</a>
+     				<a  class="btn btn-default" href="">删除</a>
+     			</th>
+			</tbody>
+			{{end}}
+	     </table>
+	</div>
+	<nav class="pag">
+	  <ul class="pagination pagination-lg">
+	    <li class={{.Pre}}><a href="/pre">&laquo;</a></li>
+	    <li class="active"><a href="#">1</a></li>
+	    <li><a href="#">2</a></li>
+	    <li><a href="#">3</a></li>
+	    <li><a href="#">4</a></li>
+	    <li><a href="#">5</a></li>
+	    <li class="{{.Next}}"><a href="/next">&raquo;</a></li>
+	  </ul>
+	</nav>
+</body>
+</html>
