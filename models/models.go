@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"math"
-	"time"
+	//"time"
 )
 
 const (
@@ -16,7 +16,7 @@ type User struct {
 	Name     string
 	Account  string
 	PhoneNum string
-	Created  time.Time `orm:"index"`
+	Created  string `orm:"index"`
 }
 
 //注册数据库
@@ -27,6 +27,15 @@ func RegisterDB() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	//注册数据库
 	orm.RegisterDataBase("default", "mysql", "root:special005@/user?charset=utf8", 10)
+}
+
+//获取新用户
+func GetNewUsers(id int) int {
+	o := orm.NewOrm()
+	users := make([]*User, 0)
+	qs := o.QueryTable("user")
+	qs.Limit(10, id).All(&users)
+	return len(users)
 }
 
 //获取所有用户资料

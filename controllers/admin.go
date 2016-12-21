@@ -36,5 +36,13 @@ func (c *AdminController) Get() {
 	}
 }
 func (c *AdminController) Dowload() {
-
+	c.Redirect("/admin", 304)
+	return
+}
+func (c *AdminController) Message() {
+	id := c.Input().Get("id")
+	num, _ := strconv.Atoi(id)
+	message := models.GetNewUsers(num)
+	newus := strconv.Itoa(message)
+	c.Ctx.WriteString(newus)
 }

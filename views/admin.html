@@ -5,12 +5,8 @@
 	  	<meta name="viewport" content="width=device-width, initial-scale=1">
 	  	<link href="/static/css/bootstrap.css" rel="stylesheet">
 	  	<link rel="stylesheet" href="/static/css/admin.css">
-	  	<link rel="stylesheet" href="/static/css/messenger.css">
-		<link rel="stylesheet" href="/static/css/messenger-theme-air.css">
 		<script src="/static/js/jquery.js"></script>
 		<script src="/static/js/bootstrap.min.js"></script>
-		<script src="/static/js/messenger.min.js"></script>
-	  	<script src="/static/js/backbone-min.js"></script>
 	  	<script src="/static/js/main.js"></script>
 	  	<title>中投天诚客户管理系统</title>
 	</head>
@@ -33,7 +29,7 @@
 	      		</ul>
       			<div class="pull-right">
 	    			<ul class="nav navbar-nav">
-	    				<li><a href=""><span class="badge" id="message">15</span></a></li>
+	    				<li><a href=""><span class="badge" id="message"></span></a></li>
 	    				<li><a href="/admin?exit=true">退出</a></li>
 	    				<li><a href="/admin/dowload">下载</a></li>
 	    			</ul>
@@ -81,6 +77,6 @@
 	  </ul>
 	   <ul>共{{.paginator.totals}}条记录 共记{{.paginator.totalpages}}页</ul>
 	</nav>
-	<audio src="/static/audio/alert.ogg" autoplay="autoplay"></audio>
+	<audio  id="audio" src="/static/audio/alert.ogg"></audio>
 </body>
 </html>

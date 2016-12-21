@@ -1,37 +1,29 @@
-$(function(){
-  Messenger.options = {
-    extraClasses: "messenger-fixed messenger-on-bottom messenger-on-left",
-    theme: "air"
-  };
-  var steps = function() {
-      var msg = Messenger().post({
-        message: '您有新的客户啦!',
-        type: 'info',
-      });
-      //设置标签播放
-
-      setTimeout(
-        function(){
-          msg.hide();
-          //清除播放
-        }, 
-        6000
-      );
-    };
-    steps();
-});
-document.getElementById("save").onclick=function(){
-  //发送Ajax查询请求并处理
-  var request = new XMLHttpRequest();
-  request.open("GET", "/admin/message?time=");
-  request.send();
-  request.onreadystatechange = function(){
-      if(request.readyState === 4){
-          if(request.status === 200){
-              document.getElementById("").innerHTML=request.responseText;
-          }else{
-              alert("发生错误"+request.status);
-          }
+$(document).ready(function(){
+  //每过5分钟向服务器发送请求
+  var t
+  var message = 0
+  setInterval(function(){
+    var id = $("table tbody tr th").first()[0].childNodes[0].data;
+    //console.log(id);
+    $.ajax({
+      type: "get",
+      url:"/admin/message?id="+id,
+      async:true,
+      success:function(data){
+        message = data;
+        if (message != 0) {
+          $("#message").html(message);//message.responseText
+          $("#message").css("background-color", "#2b90d9");
+          var audio = $("#audio")[0];
+          audio.play();     
+        }else{
+          $("#message").html("0");
+          $("#message").css("background-color", "#ccc");
+        }
       }
-  }
-}
+    });
+  }, 300000)
+  $("#message").click(function(){
+    $("#message").css("background-color","#F8F8F8");
+  });
+});
