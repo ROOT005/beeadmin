@@ -14,5 +14,6 @@ func init() {
 	beego.Router("/admin", &controllers.AdminController{})
 	beego.Router("/admin/dowload", &controllers.AdminController{}, "get:Dowload")
 	beego.Router("/admin/message", &controllers.AdminController{}, "get:Message")
+	beego.Router("admin/delete", &controllers.AdminController{}, "get:Delete")
 	beego.AutoRouter(&controllers.LoginController{})
 }

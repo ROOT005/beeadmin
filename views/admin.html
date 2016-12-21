@@ -29,7 +29,7 @@
 	      		</ul>
       			<div class="pull-right">
 	    			<ul class="nav navbar-nav">
-	    				<li><a href=""><span class="badge" id="message"></span></a></li>
+	    				<li><a href="/admin"><span class="badge" id="message"></span></a></li>
 	    				<li><a href="/admin?exit=true">退出</a></li>
 	    				<li><a href="/admin/dowload">下载</a></li>
 	    			</ul>
@@ -58,11 +58,32 @@
      			<th>{{.PhoneNum}}</th>
      			<th>{{.Created}}</th>
      			<th>
-     				<a  class="btn btn-default" href="">删除</a>
+     				<a  class="btn btn-default" href="/admin/delete"data-toggle="modal" data-target="#modal">删除</a>
      			</th>
 			</tbody>
 			{{end}}
 	     </table>
+	</div>
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal">
+	        			<span aria-hidden="true">&times;</span>
+	        			<span class="sr-only">Close</span>
+	        		</button>
+	        		<h4 class="modal-title" id="myModalLabel">确定要删除?</h4>
+	      		</div>
+	      		<div class="modal-body">
+	        		哈哈哈哈
+	      		</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        	<button type="button" class="btn btn-primary">确定</button>
+		      	</div>
+		   </div>
+	  </div>
+	</div>
 	</div>
 	<nav class="pag">
 	  <ul class="pagination pagination-lg">
@@ -77,6 +98,6 @@
 	  </ul>
 	   <ul>共{{.paginator.totals}}条记录 共记{{.paginator.totalpages}}页</ul>
 	</nav>
-	<audio  id="audio" src="/static/audio/alert.ogg"></audio>
+	<audio id="audio" src="/static/audio/alert.ogg"></audio>
 </body>
 </html>

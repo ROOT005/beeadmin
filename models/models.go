@@ -4,11 +4,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"math"
-	//"time"
-)
-
-const (
-	_DB_NAME = "data/beeadmin.sql"
 )
 
 type User struct {
@@ -18,6 +13,8 @@ type User struct {
 	PhoneNum string
 	Created  string `orm:"index"`
 }
+
+var DefaultRowsLimit = 1000
 
 //注册数据库
 func RegisterDB() {
@@ -45,6 +42,18 @@ func GetAllUsers() ([]*User, error) {
 	qs := o.QueryTable("user")
 	_, err := qs.All(&users)
 	return users, err
+}
+
+//删除用户
+func DeleteUser(id int64) error {
+	var err error
+	o := orm.NewOrm()
+	user := &User{Id: id}
+	_, err = o.Delete(user)
+	if err != nil {
+		return err
+	}
+	return err
 }
 
 //获取数据
