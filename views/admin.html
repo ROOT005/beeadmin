@@ -11,7 +11,7 @@
 	  	<title>中投天诚客户管理系统</title>
 	</head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="header">
   		<div class="container">
     		<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -58,33 +58,30 @@
      			<th>{{.PhoneNum}}</th>
      			<th>{{.Created}}</th>
      			<th>
-     				<a  class="btn btn-default" href="/admin/delete"data-toggle="modal" data-target="#modal">删除</a>
+     				<!--href="/admin/delete"-->
+     				<a  class="btn btn-default" data-toggle="modal" data-target="#modal">删除</a>
      			</th>
 			</tbody>
 			{{end}}
 	     </table>
 	</div>
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-	    	<div class="modal-content">
-	      		<div class="modal-header">
-	        		<button type="button" class="close" data-dismiss="modal">
-	        			<span aria-hidden="true">&times;</span>
-	        			<span class="sr-only">Close</span>
-	        		</button>
-	        		<h4 class="modal-title" id="myModalLabel">确定要删除?</h4>
-	      		</div>
-	      		<div class="modal-body">
-	        		哈哈哈哈
-	      		</div>
-		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		        	<button type="button" class="btn btn-primary">确定</button>
-		      	</div>
-		   </div>
-	  </div>
-	</div>
-	</div>
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	      <p></p>
+	      </div>
+	      <div class="modal-body" id="info">
+	        <h4>真的要删除?</h4>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" id="confirm" class="btn btn-default" >确定</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<nav class="pag">
 	  <ul class="pagination pagination-lg">
 	  	<li class=""><a href="/admin/?p={{.paginator.firstpage}}">&laquo;</a></li>

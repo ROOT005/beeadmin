@@ -26,4 +26,22 @@ $(document).ready(function(){
   $("#message").click(function(){
     $("#message").css("background-color","#F8F8F8");
   });
+  //监听弹窗点击事件
+  $("#confirm").click(function(){
+    var id = $(".del").parent().prevAll()[4].innerHTML;
+    console.log(id);
+    var path = "/admin/delete?id=" + id;
+    $("#info h4").load(path);
+    $(".modal-footer button").hide();
+    window.location.reload();
+  });
+  //添加被点击的按钮属性del
+  $('#modal').on('show.bs.modal', function (e) {
+    var delb = e.relatedTarget;
+    delb.className = "del btn btn-default";
+  });
+  $('#modal').on('hidden.bs.modal', function (e) {
+    $("#info h4").text("真的要删除吗?");
+    $(".modal-footer button").show();
+  });
 });
